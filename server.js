@@ -9,6 +9,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// connect to mongodb
+const URI = process.env.MONGO_URL;
+mongoose.connect(URI, {
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, (err) => {
+  if(err) throw err;
+  else return console.log('mongo db connected successfully')
+})
+
 // routes
 app.use('/', require('./routes/aboutRoute'));
 
