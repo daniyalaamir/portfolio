@@ -1,19 +1,59 @@
+const aboutSchema = require('../models/aboutModel');
+
+// get about
 exports.getAbout = (req, res) => {
-  res.send('Hello from get about')
+  // find all the data
+  aboutSchema.find()
+    .then(response => res.json(response))
+    .catch(err => res.status(500).json({
+      msg: err
+    }))
 }
 
-exports.addAbout = (req, res) => {
-  res.send('Hello from add about')
+// add about
+exports.addAbout = async (req, res) => {
+  const { about } = req.body;
+  try {
+    const newAbout = new aboutSchema({
+      about: about
+    })
+    await newAbout.save();
+    res.json(newAbout);
+  } catch(err) {
+    res.status(500).json({
+      msg: err
+    })
+  }
 }
 
+// get specific about by id
 exports.getAboutById = (req, res) => {
-  res.send('Hello from add about id')
+  aboutSchema.findById(req.params.id)
+    .then(response => res.json(response))
+    .catch(err => res.status(400).json({
+      msg: err
+    }))
 }
 
-exports.updateAbout = (req, res) => {
-  res.send('Hello from update about id')
+// update specific about by id
+exports.updateAbout = async (req, res) => {
+  const { about } = req.body;
+  try {
+    const newAbout = await aboutSchema.findByIdAndUpdate(req.params.id, {
+      about: about
+    })
+    let result = await newAbout.save();
+    await result;
+    res.json({ msg: 'item updated' })
+  } catch(err) {
+    res.status(500).json({
+      msg: err
+    })
+  }
 }
 
-exports.deleteAbout = (req, res) => {
-  res.send('Hello from delete about id')
+// delete specific about by id
+exports.deleteAbout = async (req, res) => {
+  const about = await aboutSchema.findByIdAndDelete(req.params.id)
+  res.json({ msg: 'item deleted' })
 }

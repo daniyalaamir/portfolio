@@ -7,19 +7,19 @@ const {
   deleteAbout
 } = require('../controllers/aboutCtrl');
 
-// get user
+// get about
 router.get('/about', getAbout);
 
-// post user
+// add about
 router.post('/about', addAbout);
 
-// get specific user by id
-router.post('/about/:id', getAboutById);
+// get specific about by id
+router.get('/about/:id', getAboutById);
 
-// update specific user by id
+// update specific about by id
 router.put('/about/update/:id', updateAbout);
 
-// delete specific user by id
+// delete specific about by id
 router.delete('/about/:id', deleteAbout);
 
 module.exports = router;
