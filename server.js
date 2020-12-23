@@ -23,6 +23,7 @@ mongoose.connect(URI, {
 
 // routes
 app.use('/', require('./routes/aboutRoute'));
+app.use('/', require('./routes/educationRoute'));
 
 PORT = process.env.PORT || 5000;
 
